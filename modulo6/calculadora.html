@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+    * {
+        user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-tap-highlight-color: transparent;
+        margin: 0;
+        padding: 0;
+    }
+
+    #sortable {
+        list-style-type: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #sortable li {
+        float: left;
+        width: 33%;
+    }
+
+    #sortable li img {
+        vertical-align: bottom;
+        width: 100%;
+        height: auto;
+    }
+
+    @media (orientation:landscape) {
+        #sortable {
+            width: 100vh;
+        }
+    }
+
+    @media (orientation:portrait) {
+        #sortable {
+            width: 100%;
+        }
+    }
+    </style>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.ui.touch-punch.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $("#n1").on("click",
+            function() {
+                $("#n1").val("");
+            }
+        );
+
+        $("#b1").on("click",
+            function() {
+                var num = $("#n1");
+                num.val(+num.val() * +num.val());
+            }
+        );
+
+        $("#b2").on("click",
+            function() {
+                var num = $("#n1");
+                num.val(num.val() != 0 ? 1 / (+num.val()) : window.alert('No se puede dividir por cero!'));
+            }
+        );
+
+        $("#b3").on("click",
+            function() {
+                var num = $("#n1");
+                num.val(num.val() >= 0 ? Math.sqrt(+num.val()) : window.alert('No se puede calcular la raiz de un numero negativo!'));
+            }
+        );
+
+        $("#b4").on("click",
+            function() {
+                var num = $("#n1");
+                num.val(num.val() >= 0 ? Math.floor(+num.val()) : -Math.ceil(+num.val()));
+            }
+        );
+
+        $("#b5").on("click",
+            function() {
+                var num = $("#n1");
+                num.val(Math.pow(2, +num.val()));
+            }
+        );
+
+        $("#b6").on("click",
+            function() {
+                var num = $("#n1");
+                num.val(+num.val() >= 0 ? factorial(+num.val()) : window.alert('No se puede calcular el factorial de un numero negativo!'));
+            }
+        );
+
+        function factorial(n) {
+            if (n == 1 || n == 0) {
+                return 1;
+            } else {
+                return n * factorial(n - 1);
+            }
+        }
+
+        var acc, op;
+
+        $("#b7").on("click",
+            function() {
+                acc = $("#n1").val();
+                op = '+';
+            }
+        );
+
+        $("#b8").on("click",
+            function() {
+                var num = $("#n1");
+                if (op === '+') {
+                    num.val(+acc + +num.val());
+                }
+                if (op === '-') {
+                    num.val(+acc - +num.val());
+                }
+                if (op === '*') {
+                    num.val(+acc * +num.val());
+                }
+                if (op === '/') {
+                    num.val(function() {
+                        if (+num.val() == !0) {
+                            return (+acc / +num.val());
+                        } else {
+                            window.alert('No se puede dividir por cero!')
+                        }
+                    });
+                }
+                if (op === 'pow') {
+                    num.val(Math.pow(+acc, +num.val()));
+                }
+            }
+        );
+
+        $("#b9").on("click",
+            function() {
+                acc = $("#n1").val();
+                op = '-';
+            }
+        );
+
+        $("#b10").on("click",
+            function() {
+                acc = $("#n1").val();
+                op = '*';
+            }
+        );
+
+        $("#b11").on("click",
+            function() {
+                acc = $("#n1").val();
+                op = '/';
+            }
+        );
+
+        $("#b12").on("click",
+            function() {
+                acc = $("#n1").val();
+                op = 'pow';
+            }
+        );
+
+        $("#b13").on("click",
+            function() {
+                var num = $("#n1")
+                var arr = num.val().toString().split(',');
+                var res = sumtoria(arr);
+                num.val(res);
+            }
+        );
+
+        $("#b14").on("click",
+            function() {
+                var num = $("#n1")
+                var arr = num.val().toString().split(',');
+                var res = productoria(arr);
+                num.val(res);
+            }
+        );
+
+        function sumtoria(arr) {
+            var acum = 0;
+            for (var i = 0; i < arr.length; i++) {
+                acum += +arr[i];
+            }
+            return +acum;
+        }
+
+        function productoria(arr) {
+            var acum = 1;
+            for (var i = 0; i < arr.length; i++) {
+                acum *= +arr[i];
+            }
+            return +acum;
+        }
+    });
+    </script>
+    <script>
+    $(function() {
+        $("#sortable").sortable();
+        $("#sortable").disableSelection();
+    });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-inverse ">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#miMenu">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">MOOC</a>
+                </div>
+                <div class="collapse navbar-collapse" id="miMenu">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">INICIO</a></li>
+                        <li><a href="ejercicio_puzzle.html">PUZZLE</a></li>
+                        <li class="active"><a href="calculadora.html">CALCULADORA</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="ejercicio">
+            <h1>Buenos días, bienvenido a la calculadora de Diego Correa</h1>
+            <p>Número:</p>
+            <input type="text" id="n1">
+            <button id="b1"> x<sup>2</sup></button>
+            <button id="b2">1/x</button>
+            <button id="b3">Raiz</button>
+            <button id="b4">parte_entera(x)</button>
+            <button id="b5">2<sup>x</sup></button>
+            <button id="b6">x!</button>
+            <button id="b8">=</button>
+            <button id="b7">+</button>
+            <button id="b9">-</button>
+            <button id="b10">*</button>
+            <button id="b11">/</button>
+            <button id="b12"> x<sup>y</sup></button>
+            <button id="b13">Sumatoria CSV</button>
+            <button id="b14">Productoria CSV</button>
+            <div class="clear"> </div>
+        </div>
+    </div>
+</body>
+
+</html>
